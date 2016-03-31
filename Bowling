@@ -1,0 +1,50 @@
+/**
+ * Write a description of class Bowling here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Bowling
+{
+    private int[] rollArray;
+    private int frames;
+
+    public Bowling(int[] rollArray, int frames)
+    {
+        this.rollArray = rollArray;
+        this.frames = frames;
+    }
+    
+    public void play()
+    {
+        String header = "+---+---+   Frame " + frames;
+        System.out.println(header);
+        printOpenFrame();
+        
+    }
+    
+    public void printOpenFrame()
+    {
+        int score = 0;
+        int totalScore = score;
+        for(int i = 0; i < rollArray.length; i+=2)
+        {
+            if(rollArray[i] == 10) //FOR STRIKES
+            {
+                score = rollArray[i] + rollArray[i+1] + rollArray[i+2];
+            }
+            else if((rollArray[i] + rollArray[i+1]) == 10) //FOR SPARES
+            {
+                score = 10 + rollArray[i+2];
+            }
+            else
+            {
+                score = rollArray[i] + rollArray[i+1];
+            }
+            System.out.println("| " + rollArray[i] + " | " + rollArray[i+1] + " |");
+            System.out.println("|---+---|");
+            System.out.println("|    " + score + " |");
+            System.out.println("+-------+");
+        }
+    }
+}
