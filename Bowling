@@ -1,14 +1,14 @@
 /**
- * Write a description of class Bowling here.
+ * Tests frames in order to print the number of pins knocked down along with the score in a good looking format
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Nathan Roller 
+ * @version 4/7/2016
  */
 public class Bowling
 {
     private int[] rollArray;
     private int frames;
-
+    private int totalScore;
     public Bowling(int[] rollArray, int frames)
     {
         this.rollArray = rollArray;
@@ -19,31 +19,59 @@ public class Bowling
     {
         String header = "+---+---+   Frame " + frames;
         System.out.println(header);
-        printOpenFrame();
+        for (int i = 0; i < rollArray.length; i++)
+        {
+            if (rollArray[i]%2 != 0 && (rollArray[i] == 10))
+            {
+                printStrikeFrame();
+            }
+            else
+            {
+                printOpenFrame();
+            }
+        }
         
     }
     
     public void printOpenFrame()
     {
         int score = 0;
-        int totalScore = score;
         for(int i = 0; i < rollArray.length; i+=2)
         {
-            if(rollArray[i] == 10) //FOR STRIKES
+            score = rollArray[i] + rollArray[i+1];
+            totalScore+= score;
+            System.out.println("| " + rollArray[i] + " | " + rollArray[i+1] + " |");
+            System.out.println("|---+---|");
+            if (totalScore < 10)
             {
-                score = rollArray[i] + rollArray[i+1] + rollArray[i+2];
-            }
-            else if((rollArray[i] + rollArray[i+1]) == 10) //FOR SPARES
-            {
-                score = 10 + rollArray[i+2];
+                System.out.println("|     " + totalScore + " |");
             }
             else
             {
-                score = rollArray[i] + rollArray[i+1];
+                System.out.println("|    " + totalScore + " |");
             }
-            System.out.println("| " + rollArray[i] + " | " + rollArray[i+1] + " |");
+            System.out.println("+-------+");
+        }
+    }
+    
+    public void printStrikeFrame()
+    {
+        int score = 0;
+        String str = "X";
+        for (int i = 0; i < rollArray.length; i+=2)
+        {
+            score = rollArray[i] + rollArray[i+1] + rollArray[i+2];
+            totalScore+= score;
+            System.out.println("|   | " + str + " |");
             System.out.println("|---+---|");
-            System.out.println("|    " + score + " |");
+            if (totalScore < 10)
+            {
+                System.out.println("|     " + totalScore + " |");
+            }
+            else
+            {
+                System.out.println("|    |" + totalScore + " |");
+            }
             System.out.println("+-------+");
         }
     }
